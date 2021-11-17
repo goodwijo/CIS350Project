@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/sign_in/sign_in_button.dart';
-import 'package:pantry_app/common_widgets/custom_elevated_button.dart';
+import 'package:pantry_app/app/sign_in/social_sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -34,7 +34,8 @@ Widget _buildContent() {
           ),
         ),
         const SizedBox(height: 48.0),
-        SignInButton(
+        SocialSignInButton(
+          assetName: 'images/google-logo.png',
           text: 'Sign in with Google',
           textColor: Colors.black87,
           color: Colors.white,
