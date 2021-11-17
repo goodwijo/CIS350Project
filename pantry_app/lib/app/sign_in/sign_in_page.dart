@@ -10,33 +10,30 @@ class SignInPage extends StatelessWidget {
         title: const Text('Pantry App'),
         elevation: 2.0,
       ),
-      body: buildContent(),
+      body: _buildContent(),
     );
   }
 }
 
-Widget buildContent() {
-  return Container(
+Widget _buildContent() {
+  return Padding(
+    padding: EdgeInsets.all(16.0),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Container(
-          color: Colors.orange,
-          child: SizedBox(
-            height: 100.0,
+        const Text(
+          'Sign in',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        Container(
-          color: Colors.red,
-          child: SizedBox(
-            height: 100.0,
-          ),
-        ),
-        Container(
-          color: Colors.purple,
-          child: SizedBox(
-            height: 100.0,
-          ),
+        const SizedBox(height: 8.0),
+        ElevatedButton(
+          child: const Text('Sign in with Google'),
+          onPressed: () {},
         ),
       ],
     ),
