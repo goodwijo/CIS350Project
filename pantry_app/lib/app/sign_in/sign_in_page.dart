@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/sign_in/sign_in_button.dart';
 import 'package:pantry_app/common_widgets/custom_elevated_button.dart';
 
 class SignInPage extends StatelessWidget {
@@ -32,30 +33,34 @@ Widget _buildContent() {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8.0),
-        CustomElevatedButton(
-          child: const Text(
-            'Sign in with Google',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 15.0,
-            ),
-          ),
-          color: Colors.green,
-          borderRadius: 4.0,
+        const SizedBox(height: 48.0),
+        SignInButton(
+          text: 'Sign in with Google',
+          textColor: Colors.black87,
+          color: Colors.white,
           onPressed: () {},
         ),
         const SizedBox(height: 8.0),
-        CustomElevatedButton(
-          child: const Text(
-            'Sign in with email',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 15.0,
-            ),
+        SignInButton(
+          text: 'Sign in with email',
+          textColor: Colors.white,
+          color: Colors.teal.shade700,
+          onPressed: () {},
+        ),
+        const SizedBox(height: 8.0),
+        const Text(
+          'or',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14.0,
+            color: Colors.black87,
           ),
-          color: Colors.orange,
-          borderRadius: 4.0,
+        ),
+        const SizedBox(height: 8.0),
+        SignInButton(
+          text: 'Go anonymous',
+          textColor: Colors.black,
+          color: Colors.lime.shade300,
           onPressed: () {},
         ),
       ],
