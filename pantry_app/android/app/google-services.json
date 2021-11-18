@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "24053401405",
-    "project_id": "time-tracker-flutter-cou-908b0",
-    "storage_bucket": "time-tracker-flutter-cou-908b0.appspot.com"
+    "project_number": "184106182654",
+    "project_id": "pantry-app-50004",
+    "storage_bucket": "pantry-app-50004.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:24053401405:android:b79cbab48121cf24c82754",
+        "mobilesdk_app_id": "1:184106182654:android:1c1bc036277b82470402af",
         "android_client_info": {
-          "package_name": "com.example.time_tracker_flutter_course"
+          "package_name": "com.example.pantry_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "24053401405-o68m9jq2vf0ntcoibm0tjodbggfbfot6.apps.googleusercontent.com",
+          "client_id": "184106182654-lopv5mpfka9u336apsq2buarelg4egbh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.time_tracker_flutter_course",
+            "package_name": "com.example.pantry_app",
             "certificate_hash": "dc24ce4843da8c293688d12ca7e0eaa822e15d2a"
           }
         },
         {
-          "client_id": "24053401405-v6s3vuin1cou7uink61cms5vgl1eprg2.apps.googleusercontent.com",
+          "client_id": "184106182654-11b0hh5enb7ogd2fes8g5p0k8l1he2oj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDlrS0QFUvWUyV4rASbLSabV7vc8VuP7P0"
+          "current_key": "AIzaSyBPFNRPAkx7GShQQtclPzfJDiIFkVUAFzw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "24053401405-v6s3vuin1cou7uink61cms5vgl1eprg2.apps.googleusercontent.com",
+              "client_id": "184106182654-11b0hh5enb7ogd2fes8g5p0k8l1he2oj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
