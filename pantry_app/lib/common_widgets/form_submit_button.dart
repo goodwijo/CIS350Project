@@ -5,7 +5,7 @@ import 'package:pantry_app/common_widgets/custom_elevated_button.dart';
 class FormSubmitButton extends CustomElevatedButton {
   FormSubmitButton({
     required String text,
-    required VoidCallback onPressed,
+    VoidCallback? onPressed,
   }) : super(
           child: Text(
             text,
@@ -14,6 +14,6 @@ class FormSubmitButton extends CustomElevatedButton {
           height: 44.0,
           color: Colors.red,
           borderRadius: 4.0,
-          onPressed: onPressed,
+          onPressed: onPressed!,
         );
 }

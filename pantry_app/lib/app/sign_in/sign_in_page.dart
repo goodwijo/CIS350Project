@@ -12,7 +12,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously() async {
     try {
-      final user = await auth.signInAnonymously();
+      await auth.signInAnonymously();
     } catch (e) {
       print(e.toString());
     }
@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle() async {
     try {
-      final user = await auth.signInWithGoogle();
+      await auth.signInWithGoogle();
     } catch (e) {
       print(e.toString());
     }

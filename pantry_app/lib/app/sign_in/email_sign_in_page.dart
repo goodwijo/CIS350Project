@@ -14,17 +14,15 @@ class EmailSignInPage extends StatelessWidget {
         title: const Text('Sign in'),
         elevation: 2.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Card(
-          child: EmailSignInForm(auth: auth),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            child: EmailSignInForm(auth: auth),
+          ),
         ),
       ),
       backgroundColor: Colors.grey[350],
     );
-  }
-
-  Widget _buildContent() {
-    return Container();
   }
 }
