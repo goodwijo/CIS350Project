@@ -49,7 +49,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
               actions: [
                 TextButton(
                   child: const Text('OK'),
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pop(),
                 )
               ],
             );
