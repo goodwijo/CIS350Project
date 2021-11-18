@@ -40,6 +40,20 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       Navigator.of(context).pop();
     } catch (e) {
       print(e.toString());
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Sign in failed'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {},
+                )
+              ],
+            );
+          });
     } finally {
       setState(() {
         _isLoading = false;
@@ -84,10 +98,10 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       const SizedBox(height: 8.0),
       FormSubmitButton(
         text: primaryText,
-        onPressed: () => submitEnabled ? _submit : null,
+        onPressed: submitEnabled ? _submit : null,
       ),
       const SizedBox(height: 8.0),
-      ElevatedButton(
+      TextButton(
         child: Text(secondaryText),
         onPressed: !_isLoading ? _toggleFormType : null,
       ),
