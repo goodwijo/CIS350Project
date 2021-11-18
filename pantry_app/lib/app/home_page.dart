@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
-import 'package:pantry_app/services/auth_provider.dart';
+import 'package:pantry_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   Future<void> _signOut(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signOut();
     } catch (e) {
       print(e.toString());
