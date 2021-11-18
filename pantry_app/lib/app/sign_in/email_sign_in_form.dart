@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/sign_in/validators.dart';
 import 'package:pantry_app/common_widgets/form_submit_button.dart';
+import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
 
 enum EmailSignInFormType { signIn, register }
@@ -39,21 +40,12 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       }
       Navigator.of(context).pop();
     } catch (e) {
-      print(e.toString());
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Sign in failed'),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () => Navigator.of(context).pop(),
-                )
-              ],
-            );
-          });
+      showAlertDialog(
+        context,
+        title: 'Sign in failed',
+        content: e.toString(),
+        defaultActionText: 'OK',
+      );
     } finally {
       setState(() {
         _isLoading = false;

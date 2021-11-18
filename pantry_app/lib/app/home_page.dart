@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,11 +14,24 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  Future<void> _confirmSignOut(BuildContext context) async {
+    final didRequestSignOut = await showAlertDialog(
+      context,
+      title: 'Logout',
+      content: 'Are you sure that you want to logout?',
+      cancelActionText: 'Cancel',
+      defaultActionText: 'Logout',
+    );
+    if (didRequestSignOut == true) {
+      _signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
         actions: <Widget>[
           TextButton(
             child: const Text(
@@ -27,7 +41,7 @@ class HomePage extends StatelessWidget {
                 fontSize: 18.0,
               ),
             ),
-            onPressed: _signOut,
+            onPressed: () => _confirmSignOut(context),
           ),
         ],
       ),
