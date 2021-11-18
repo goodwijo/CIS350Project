@@ -9,8 +9,12 @@ class SignInPage extends StatelessWidget {
   final void Function(User?) onSignIn;
 
   Future<void> _signInAnonymously() async {
-    final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-    print(userCredentials.user!.uid);
+    try {
+      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+      onSignIn(userCredentials.user);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override

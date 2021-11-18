@@ -22,7 +22,10 @@ class HomePage extends StatelessWidget {
         title: Text('Home Page'),
         actions: <Widget>[
           TextButton(
-            child: Text('Logout'),
+            child: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.black, fontSize: 15.0),
+            ),
             onPressed: _signOut,
           ),
         ],
