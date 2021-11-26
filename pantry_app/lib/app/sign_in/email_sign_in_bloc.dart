@@ -31,6 +31,23 @@ class EmailSignInBloc {
     }
   }
 
+  void toggleFormType() {
+    final formType = _model.formType == EmailSignInFormType.signIn
+        ? EmailSignInFormType.register
+        : EmailSignInFormType.signIn;
+    updateWith(
+      email: '',
+      password: '',
+      formType: formType,
+      submitted: false,
+      isLoading: false,
+    );
+  }
+
+  void updateEmail(String email) => updateWith(email: email);
+
+  void updatePassword(String password) => updateWith(password: password);
+
   void updateWith({
     String? email,
     String? password,
