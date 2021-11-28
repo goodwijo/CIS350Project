@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:pantry_app/app/sign_in/email_sign_in_model.dart';
 import 'package:pantry_app/services/auth.dart';
 
-class EmailSignInBloc {
-  EmailSignInBloc({required this.auth});
+class EmailSignInChangeModel {
+  EmailSignInChangeModel({required this.auth});
   final AuthBase auth;
 
   final StreamController<EmailSignInModel> _modelController =
