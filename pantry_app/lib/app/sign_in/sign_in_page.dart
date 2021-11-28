@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/sign_in/email_sign_in_page.dart';
-import 'package:pantry_app/app/sign_in/sign_in_bloc.dart';
+import 'package:pantry_app/app/sign_in/sign_in_manager.dart';
 import 'package:pantry_app/app/sign_in/sign_in_button.dart';
 import 'package:pantry_app/app/sign_in/social_sign_in_button.dart';
 import 'package:pantry_app/common_widgets/show_exception_alert_dialog.dart';
@@ -9,18 +9,21 @@ import 'package:pantry_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key, required this.bloc}) : super(key: key);
-  final SignInBloc bloc;
+  const SignInPage({Key? key, required this.manager, required this.isLoading})
+      : super(key: key);
+  final SignInManager manager;
+  final bool isLoading;
 
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     return ChangeNotifierProvider<ValueNotifier<bool>>(
       create: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
-        builder: (_, isLoading, __) => Provider<SignInBloc>(
-          create: (_) => SignInBloc(auth: auth, isLoading: isLoading),
-          child: Consumer<SignInBloc>(
-            builder: (_, bloc, __) => SignInPage(bloc: bloc),
+        builder: (_, isLoading, __) => Provider<SignInManager>(
+          create: (_) => SignInManager(auth: auth, isLoading: isLoading),
+          child: Consumer<SignInManager>(
+            builder: (_, manager, __) =>
+                SignInPage(manager: manager, isLoading: isLoading.value),
           ),
         ),
       ),
@@ -41,7 +44,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await bloc.signInAnonymously();
+      await manager.signInAnonymously();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -49,7 +52,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      await bloc.signInWithGoogle();
+      await manager.signInWithGoogle();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -66,18 +69,17 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = Provider.of<ValueNotifier<bool>>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pantry App'),
         elevation: 2.0,
       ),
-      body: _buildContent(context, isLoading.value),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[350],
     );
   }
 
-  Widget _buildContent(BuildContext context, bool? isLoading) {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -86,7 +88,7 @@ class SignInPage extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             height: 50.0,
-            child: _buildHeader(isLoading!),
+            child: _buildHeader(),
           ),
           const SizedBox(height: 48.0),
           SocialSignInButton(
@@ -124,7 +126,7 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(bool isLoading) {
+  Widget _buildHeader() {
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
