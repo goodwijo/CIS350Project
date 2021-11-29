@@ -3,12 +3,14 @@ import 'package:pantry_app/common_widgets/custom_elevated_button.dart';
 
 class SocialSignInButton extends CustomElevatedButton {
   SocialSignInButton({
+    Key? key,
     required String assetName,
     required String text,
     required Color color,
     required Color textColor,
     required VoidCallback? onPressed,
   }) : super(
+          key: key,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

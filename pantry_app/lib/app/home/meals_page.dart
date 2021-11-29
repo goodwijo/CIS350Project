@@ -3,8 +3,8 @@ import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MealsPage extends StatelessWidget {
+  const MealsPage({Key? key}) : super(key: key);
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Meals'),
         actions: <Widget>[
           TextButton(
             child: const Text(
