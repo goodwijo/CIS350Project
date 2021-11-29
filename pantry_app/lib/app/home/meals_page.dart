@@ -1,6 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/home/models/meal.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
 import 'package:pantry_app/services/database.dart';
@@ -33,9 +32,7 @@ class MealsPage extends StatelessWidget {
 
   Future<void> _createMeal(BuildContext context) async {
     final database = Provider.of<Database>(context, listen: false);
-    await database.createMeal({
-      'name': 'Pizza',
-    });
+    await database.createMeal(Meal(name: 'Pizza'));
   }
 
   @override
