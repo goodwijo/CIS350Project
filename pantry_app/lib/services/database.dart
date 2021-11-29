@@ -5,6 +5,7 @@ import 'package:pantry_app/services/api_path.dart';
 
 abstract class Database {
   Future<void> createMeal(Meal meal);
+  Stream<List<Meal>> mealsStream();
 }
 
 class FirestoreDatabase implements Database {
@@ -16,6 +17,19 @@ class FirestoreDatabase implements Database {
         path: APIPath.meal(uid, 'meals_abc'),
         data: meal.toMap(),
       );
+
+  @override
+  Stream<List<Meal>> mealsStream() {
+    final path = APIPath.meals(uid);
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    final Stream<List<Meal>> meals =
+        snapshots.map((snapshot) => List<Meal>.of(snapshot.docs.map((snapshot) {
+              final data = snapshot.data();
+              return Meal(name: data['name']);
+            })));
+    return meals;
+  }
 
   Future<void> _setData(
       {required String path, required Map<String, dynamic> data}) async {
