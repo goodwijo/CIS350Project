@@ -1,6 +1,9 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
+import 'package:pantry_app/services/database.dart';
 import 'package:provider/provider.dart';
 
 class MealsPage extends StatelessWidget {
@@ -28,6 +31,13 @@ class MealsPage extends StatelessWidget {
     }
   }
 
+  Future<void> _createMeal(BuildContext context) async {
+    final database = Provider.of<Database>(context, listen: false);
+    await database.createMeal({
+      'name': 'Pizza',
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +55,10 @@ class MealsPage extends StatelessWidget {
             onPressed: () => _confirmSignOut(context),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => _createMeal(context),
       ),
     );
   }

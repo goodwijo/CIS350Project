@@ -4,6 +4,7 @@ import 'package:pantry_app/app/home/meals_page.dart';
 import 'package:pantry_app/app/sign_in/sign_in_page.dart';
 import 'package:pantry_app/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pantry_app/services/database.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -19,7 +20,9 @@ class LandingPage extends StatelessWidget {
           if (user == null) {
             return SignInPage.create(context);
           }
-          return const MealsPage();
+          return Provider<Database>(
+              create: (_) => FirestoreDatabase(uid: user.uid),
+              child: const MealsPage());
         }
         return const Scaffold(
           body: Center(
