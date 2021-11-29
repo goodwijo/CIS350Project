@@ -81,6 +81,9 @@ class MealsPage extends StatelessWidget {
             final children = meals!.map((meal) => Text(meal.name)).toList();
             return ListView(children: children);
           }
+          if (snapshot.hasError) {
+            return const Center(child: Text('An error occurred'));
+          }
           return const Center(child: CircularProgressIndicator());
         });
   }
