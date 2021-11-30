@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/home/meals/add_meal_page.dart';
 import 'package:pantry_app/app/home/models/meal.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/common_widgets/show_exception_alert_dialog.dart';
@@ -66,7 +67,7 @@ class MealsPage extends StatelessWidget {
       body: _buildContents(context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _createMeal(context),
+        onPressed: () => AddMealPage.show(context),
       ),
     );
   }
