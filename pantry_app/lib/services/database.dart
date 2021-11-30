@@ -25,6 +25,6 @@ class FirestoreDatabase implements Database {
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
         path: APIPath.meals(uid),
-        builder: (data) => Meal.fromMap(data),
+        builder: (data, documentId) => Meal.fromMap(data, documentId),
       );
 }

@@ -6,28 +6,38 @@ import 'package:pantry_app/common_widgets/show_exception_alert_dialog.dart';
 import 'package:pantry_app/services/database.dart';
 import 'package:provider/provider.dart';
 
-class AddMealPage extends StatefulWidget {
-  const AddMealPage({Key? key, required this.database}) : super(key: key);
+class EditMealPage extends StatefulWidget {
+  const EditMealPage({Key? key, required this.database, required this.meal})
+      : super(key: key);
   final Database database;
+  final Meal meal;
 
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, {meal}) async {
     final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => AddMealPage(database: database),
+        builder: (context) => EditMealPage(database: database, meal: meal),
         fullscreenDialog: true,
       ),
     );
   }
 
   @override
-  _AddMealPageState createState() => _AddMealPageState();
+  _EditMealPageState createState() => _EditMealPageState();
 }
 
-class _AddMealPageState extends State<AddMealPage> {
+class _EditMealPageState extends State<EditMealPage> {
   final _formKey = GlobalKey<FormState>();
 
   late String _name;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.meal != null) {
+      _name = widget.meal.name;
+    }
+  }
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
@@ -49,7 +59,7 @@ class _AddMealPageState extends State<AddMealPage> {
               content: 'Enter a different meal',
               defaultActionText: 'OK');
         } else {
-          final meal = Meal(name: _name);
+          final meal = Meal(name: _name, id: '');
           await widget.database.createMeal(meal);
           Navigator.of(context).pop();
         }
@@ -65,7 +75,7 @@ class _AddMealPageState extends State<AddMealPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: const Text('New Meal'),
+        title: Text(widget.meal == null ? 'New Meal' : 'Edit Meal'),
         actions: <Widget>[
           TextButton(
             child: const Text(
@@ -109,6 +119,7 @@ class _AddMealPageState extends State<AddMealPage> {
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Meal Name'),
+        initialValue: _name,
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value!,
       ),
