@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/home/meals/edit_meal_page.dart';
 import 'package:pantry_app/app/home/meals/empty_content.dart';
+import 'package:pantry_app/app/home/meals/list_items_builder.dart';
 import 'package:pantry_app/app/home/meals/meal_list_tile.dart';
 import 'package:pantry_app/app/home/models/meal.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
@@ -66,23 +67,13 @@ class MealsPage extends StatelessWidget {
     return StreamBuilder<List<Meal>>(
         stream: database.mealsStream(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final meals = snapshot.data;
-            if (meals!.isNotEmpty) {
-              final children = meals
-                  .map((meal) => MealListTile(
-                        meal: meal,
-                        onTap: () => EditMealPage.show(context, meal: meal),
-                      ))
-                  .toList();
-              return ListView(children: children);
-            }
-            return const EmptyContent();
-          }
-          if (snapshot.hasError) {
-            return const Center(child: Text('An error occurred'));
-          }
-          return const Center(child: CircularProgressIndicator());
+          return ListItemsBuilder<Meal>(
+            snapshot: snapshot,
+            itemBuilder: (context, meal) => MealListTile(
+              meal: meal,
+              onTap: () => EditMealPage.show(context, meal: meal),
+            ),
+          );
         });
   }
 }
