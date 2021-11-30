@@ -59,8 +59,9 @@ class _EditMealPageState extends State<EditMealPage> {
               content: 'Enter a different meal',
               defaultActionText: 'OK');
         } else {
-          final meal = Meal(name: _name, id: '');
-          await widget.database.createMeal(meal);
+          final id = widget.meal.id;
+          final meal = Meal(id: id, name: _name);
+          await widget.database.setMeal(meal);
           Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {

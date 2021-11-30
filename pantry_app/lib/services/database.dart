@@ -4,7 +4,7 @@ import 'package:pantry_app/services/api_path.dart';
 import 'package:pantry_app/services/firestore_service.dart';
 
 abstract class Database {
-  Future<void> createMeal(Meal meal);
+  Future<void> setMeal(Meal meal);
   Stream<List<Meal>> mealsStream();
 }
 
@@ -17,8 +17,8 @@ class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
 
   @override
-  Future<void> createMeal(Meal meal) => _service.setData(
-        path: APIPath.meal(uid, documentIdFromCurrentDate()),
+  Future<void> setMeal(Meal meal) async => await _service.setData(
+        path: APIPath.meal(uid, meal.id),
         data: meal.toMap(),
       );
 
