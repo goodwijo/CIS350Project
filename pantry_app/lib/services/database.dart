@@ -4,6 +4,7 @@ import 'package:pantry_app/services/api_path.dart';
 import 'package:pantry_app/services/firestore_service.dart';
 
 abstract class Database {
+  Future<void> deleteMeal(Meal meal);
   Future<void> setMeal(Meal meal);
   Stream<List<Meal>> mealsStream();
 }
@@ -21,6 +22,10 @@ class FirestoreDatabase implements Database {
         path: APIPath.meal(uid!, meal.id),
         data: meal.toMap(),
       );
+
+  @override
+  Future<void> deleteMeal(Meal meal) =>
+      _service.deleteData(path: APIPath.meal(uid!, meal.id));
 
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
