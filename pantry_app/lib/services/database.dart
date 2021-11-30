@@ -8,6 +8,8 @@ abstract class Database {
   Stream<List<Meal>> mealsStream();
 }
 
+String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+
 class FirestoreDatabase implements Database {
   FirestoreDatabase({required this.uid}) : assert(uid != null);
   final String uid;
@@ -16,7 +18,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> createMeal(Meal meal) => _service.setData(
-        path: APIPath.meal(uid, 'meals_abc'),
+        path: APIPath.meal(uid, documentIdFromCurrentDate()),
         data: meal.toMap(),
       );
 

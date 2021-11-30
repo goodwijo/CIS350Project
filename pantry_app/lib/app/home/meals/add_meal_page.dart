@@ -1,12 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/home/models/meal.dart';
+import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
+import 'package:pantry_app/common_widgets/show_exception_alert_dialog.dart';
+import 'package:pantry_app/services/database.dart';
+import 'package:provider/provider.dart';
 
 class AddMealPage extends StatefulWidget {
-  const AddMealPage({Key? key}) : super(key: key);
+  const AddMealPage({Key? key, required this.database}) : super(key: key);
+  final Database database;
 
   static Future<void> show(BuildContext context) async {
+    final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const AddMealPage(),
+        builder: (context) => AddMealPage(database: database),
         fullscreenDialog: true,
       ),
     );
@@ -30,9 +38,25 @@ class _AddMealPageState extends State<AddMealPage> {
     return false;
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (_validateAndSaveForm()) {
-      print('Meal saved, meal name: $_name');
+      try {
+        final meals = await widget.database.mealsStream().first;
+        final allNames = meals.map((meal) => meal.name).toList();
+        if (allNames.contains(_name)) {
+          showAlertDialog(context,
+              title: 'Meal already saved',
+              content: 'Enter a different meal',
+              defaultActionText: 'OK');
+        } else {
+          final meal = Meal(name: _name);
+          await widget.database.createMeal(meal);
+          Navigator.of(context).pop();
+        }
+      } on FirebaseException catch (e) {
+        showExceptionAlertDialog(context,
+            title: 'Operation Failed', exception: e);
+      }
     }
   }
 
@@ -44,11 +68,11 @@ class _AddMealPageState extends State<AddMealPage> {
         title: const Text('New Meal'),
         actions: <Widget>[
           TextButton(
-            onPressed: _submit,
             child: const Text(
               'Save',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
+            onPressed: _submit,
           )
         ],
       ),
