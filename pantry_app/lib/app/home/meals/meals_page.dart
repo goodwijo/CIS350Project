@@ -33,19 +33,6 @@ class MealsPage extends StatelessWidget {
     }
   }
 
-  Future<void> _createMeal(BuildContext context) async {
-    try {
-      final database = Provider.of<Database>(context, listen: false);
-      await database.createMeal(Meal(name: 'Pizza'));
-    } on FirebaseException catch (e) {
-      showExceptionAlertDialog(
-        context,
-        title: 'Operation Failed',
-        exception: e,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
