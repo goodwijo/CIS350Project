@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/home/meals/add_meal_page.dart';
+import 'package:pantry_app/app/home/meals/meal_list_tile.dart';
 import 'package:pantry_app/app/home/models/meal.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/common_widgets/show_exception_alert_dialog.dart';
@@ -66,7 +67,12 @@ class MealsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final meals = snapshot.data;
-            final children = meals!.map((meal) => Text(meal.name)).toList();
+            final children = meals!
+                .map((meal) => MealListTile(
+                      meal: meal,
+                      onTap: () {},
+                    ))
+                .toList();
             return ListView(children: children);
           }
           if (snapshot.hasError) {
