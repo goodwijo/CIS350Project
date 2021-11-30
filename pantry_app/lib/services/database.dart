@@ -12,19 +12,19 @@ String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
 class FirestoreDatabase implements Database {
   FirestoreDatabase({required this.uid}) : assert(uid != null);
-  final String uid;
+  final String? uid;
 
   final _service = FirestoreService.instance;
 
   @override
   Future<void> setMeal(Meal meal) async => await _service.setData(
-        path: APIPath.meal(uid, meal.id),
+        path: APIPath.meal(uid!, documentIdFromCurrentDate()),
         data: meal.toMap(),
       );
 
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
-        path: APIPath.meals(uid),
-        builder: (data, documentId) => Meal.fromMap(data, documentId),
+        path: APIPath.meals(uid!),
+        builder: (data) => Meal.fromMap(data),
       );
 }

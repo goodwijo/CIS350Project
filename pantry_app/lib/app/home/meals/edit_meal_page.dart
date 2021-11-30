@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 class EditMealPage extends StatefulWidget {
   const EditMealPage({Key? key, required this.database, required this.meal})
       : super(key: key);
-  final Database database;
-  final Meal meal;
+  final Database? database;
+  final Meal? meal;
 
-  static Future<void> show(BuildContext context, {meal}) async {
+  static Future<void> show(BuildContext context, {Meal? meal}) async {
     final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -29,13 +29,13 @@ class EditMealPage extends StatefulWidget {
 class _EditMealPageState extends State<EditMealPage> {
   final _formKey = GlobalKey<FormState>();
 
-  late String _name;
+  String? _name;
 
   @override
   void initState() {
     super.initState();
     if (widget.meal != null) {
-      _name = widget.meal.name;
+      _name = widget.meal!.name;
     }
   }
 
@@ -51,7 +51,7 @@ class _EditMealPageState extends State<EditMealPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final meals = await widget.database.mealsStream().first;
+        final meals = await widget.database!.mealsStream().first;
         final allNames = meals.map((meal) => meal.name).toList();
         if (allNames.contains(_name)) {
           showAlertDialog(context,
@@ -59,9 +59,8 @@ class _EditMealPageState extends State<EditMealPage> {
               content: 'Enter a different meal',
               defaultActionText: 'OK');
         } else {
-          final id = widget.meal.id;
-          final meal = Meal(id: id, name: _name);
-          await widget.database.setMeal(meal);
+          final meal = Meal(name: _name);
+          await widget.database!.setMeal(meal);
           Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {
