@@ -1,12 +1,13 @@
 import 'package:meta/meta.dart';
 
 class Meal {
-  Meal({required this.name});
+  Meal({required this.id, required this.name});
+  final String id;
   final String? name;
 
-  factory Meal.fromMap(Map<String, dynamic> data) {
+  factory Meal.fromMap(Map<String, dynamic> data, String documentId) {
     final String? name = data['name'];
-    return Meal(name: name);
+    return Meal(id: documentId, name: name);
   }
 
   Map<String, dynamic> toMap() {

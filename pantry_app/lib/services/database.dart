@@ -18,13 +18,13 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setMeal(Meal meal) async => await _service.setData(
-        path: APIPath.meal(uid!, documentIdFromCurrentDate()),
+        path: APIPath.meal(uid!, meal.id),
         data: meal.toMap(),
       );
 
   @override
   Stream<List<Meal>> mealsStream() => _service.collectionStream(
         path: APIPath.meals(uid!),
-        builder: (data) => Meal.fromMap(data),
+        builder: (data, documentId) => Meal.fromMap(data, documentId!),
       );
 }
