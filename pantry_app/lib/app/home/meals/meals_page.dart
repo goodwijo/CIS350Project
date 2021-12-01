@@ -36,6 +36,16 @@ class MealsPage extends StatelessWidget {
     }
   }
 
+  Future<void> _delete(BuildContext context, Meal meal) async {
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      await database.deleteMeal(meal);
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(context,
+          title: 'Operation Failed', exception: e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,9 +79,15 @@ class MealsPage extends StatelessWidget {
         builder: (context, snapshot) {
           return ListItemsBuilder<Meal>(
             snapshot: snapshot,
-            itemBuilder: (context, meal) => MealListTile(
-              meal: meal,
-              onTap: () => EditMealPage.show(context, meal: meal),
+            itemBuilder: (context, meal) => Dismissible(
+              key: Key('meal-${meal.id}'),
+              background: Container(color: Colors.red),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => _delete(context, meal),
+              child: MealListTile(
+                meal: meal,
+                onTap: () => EditMealPage.show(context, meal: meal),
+              ),
             ),
           );
         });
