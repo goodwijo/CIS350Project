@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_app/app/home/meals/edit_meal_page.dart';
 import 'package:pantry_app/app/home/meals/empty_content.dart';
@@ -52,6 +53,12 @@ class MealsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Meals'),
         actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add, color: Colors.white),
+            onPressed: () => EditMealPage.show(
+              context,
+            ),
+          ),
           TextButton(
             child: const Text(
               'Logout',
@@ -65,10 +72,6 @@ class MealsPage extends StatelessWidget {
         ],
       ),
       body: _buildContents(context),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => EditMealPage.show(context),
-      ),
     );
   }
 
