@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/home/home_page.dart';
 import 'package:pantry_app/app/home/meals/meals_page.dart';
 import 'package:pantry_app/app/sign_in/sign_in_page.dart';
 import 'package:pantry_app/services/auth.dart';
@@ -22,7 +23,7 @@ class LandingPage extends StatelessWidget {
           }
           return Provider<Database>(
               create: (_) => FirestoreDatabase(uid: user.uid),
-              child: const MealsPage());
+              child: const HomePage());
         }
         return const Scaffold(
           body: Center(
