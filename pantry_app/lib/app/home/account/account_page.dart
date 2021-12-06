@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_app/common_widgets/avatar.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
 import 'package:pantry_app/services/database.dart';
@@ -16,8 +18,7 @@ class AccountPage extends StatelessWidget {
     }
   }
 
-  Future<void> _confirmSignOut(BuildContext context,
-      {required Database database}) async {
+  Future<void> _confirmSignOut(BuildContext context) async {
     final didRequestSignOut = await showAlertDialog(
       context,
       title: 'Logout',
@@ -32,23 +33,45 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    auth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account'),
-        actions: <Widget>[
-          TextButton(
-            child: const Text(
-              'Logout',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
+          title: const Text('Account'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
               ),
+              onPressed: () => _confirmSignOut(context),
             ),
-            onPressed: () => _confirmSignOut(context,
-                database: Provider.of<Database>(context, listen: false)),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(130),
+            child: _buildUserInfo(auth.currentUser),
+          )),
+    );
+  }
+
+  Widget _buildUserInfo(User? user) {
+    return Column(
+      children: [
+        Avatar(
+          photoUrl: user!.photoURL,
+          radius: 50,
+        ),
+        const SizedBox(height: 8),
+        if (user.displayName != null)
+          Text(
+            user.displayName!,
+            style: const TextStyle(color: Colors.white),
           ),
-        ],
-      ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 }
