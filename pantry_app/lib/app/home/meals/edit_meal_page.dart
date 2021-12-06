@@ -14,7 +14,7 @@ class EditMealPage extends StatefulWidget {
 
   static Future<void> show(BuildContext context, {Meal? meal}) async {
     final database = Provider.of<Database>(context, listen: false);
-    await Navigator.of(context).push(
+    await Navigator.of(context, rootNavigator: true).push(
       MaterialPageRoute(
         builder: (context) => EditMealPage(database: database, meal: meal),
         fullscreenDialog: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_app/common_widgets/show_alert_dialog.dart';
 import 'package:pantry_app/services/auth.dart';
+import 'package:pantry_app/services/database.dart';
 import 'package:provider/provider.dart';
 
 class AccountPage extends StatelessWidget {
@@ -15,7 +16,8 @@ class AccountPage extends StatelessWidget {
     }
   }
 
-  Future<void> _confirmSignOut(BuildContext context) async {
+  Future<void> _confirmSignOut(BuildContext context,
+      {required Database database}) async {
     final didRequestSignOut = await showAlertDialog(
       context,
       title: 'Logout',
@@ -42,7 +44,8 @@ class AccountPage extends StatelessWidget {
                 fontSize: 18.0,
               ),
             ),
-            onPressed: () => _confirmSignOut(context),
+            onPressed: () => _confirmSignOut(context,
+                database: Provider.of<Database>(context, listen: false)),
           ),
         ],
       ),
