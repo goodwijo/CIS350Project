@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_app/app/home/account/account_page.dart';
 import 'package:pantry_app/app/home/cupertino_home_scaffold.dart';
 import 'package:pantry_app/app/home/meals/meals_page.dart';
 import 'package:pantry_app/app/home/tab_item.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   Map<TabItem, WidgetBuilder>? get widgetBuilders {
     return {
       TabItem.meals: (_) => const MealsPage(),
-      TabItem.account: (_) => Container(),
+      TabItem.account: (_) => const AccountPage(),
     };
   }
 
